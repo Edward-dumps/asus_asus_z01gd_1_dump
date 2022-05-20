@@ -1,0 +1,23 @@
+﻿<?xml version='1.0' encoding='utf-8' standalone='yes' ?>
+<carrier_config_list>
+    <version>Zeus_Operator_MR_020</version>
+    <!-- Operator sku MR Tree -->
+    
+    <!-- LABGCF -->
+    <carrier_config mcc="001" mnc="01">
+        <boolean name="carrier_volte_available_bool" value="true" />
+    </carrier_config>
+    
+    <!-- ITVF_VoLTE -->
+    <carrier_config mcc="222" mnc="10">
+        <boolean name="carrier_volte_available_bool" value="true" />
+        <boolean name="hide_enhanced_4g_lte_bool" value="true" />
+        <int name="hide_ims_icon_mask_int" value="1" />
+    </carrier_config> 
+
+	<!-- TIM -->
+	<carrier_config mcc="222" mnc="01">
+        <boolean name="carrier_volte_available_bool" value="true" />
+    </carrier_config>
+	
+</carrier_config_list>

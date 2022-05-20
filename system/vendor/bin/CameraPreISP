@@ -1,0 +1,28 @@
+#!/system/bin/sh
+
+case $1 in
+    "0")
+        setprop persist.camera.rk_process.hal 2
+        result=`getprop persist.camera.rk_process.hal`
+        if [ $result == '2' ]; then
+            echo "1"
+        else
+            echo "0"
+        fi
+    ;;
+    "1")
+        setprop persist.camera.rk_process.hal 0
+        result=`getprop persist.camera.rk_process.hal`
+        if [ $result == '0' ]; then
+            echo "1"
+        else
+            echo "0"
+        fi
+    ;;
+
+    *)
+        echo "Invalid argument!!(Para1 $1)"
+    ;;
+esac
+
+exit 0

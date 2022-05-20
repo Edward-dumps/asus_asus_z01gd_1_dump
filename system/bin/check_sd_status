@@ -1,0 +1,1 @@
+cat /sys/devices/soc/c0a4900.sdhci/cd_gpio_status

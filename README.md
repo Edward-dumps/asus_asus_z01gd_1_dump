@@ -1,0 +1,14 @@
+# WW_Phone-user 8.0.0 OPR1.170623.032 15.0410.1911.117-0 release-keys
+- manufacturer: asus
+- platform: msm8998
+- codename: ASUS_Z01GD_1
+- flavor: WW_Phone-user
+- release: 8.0.0
+- id: OPR1.170623.032
+- incremental: 15.0410.1911.117-0
+- tags: release-keys
+- fingerprint: asus/WW_Phone/ASUS_Z01GD_1:8.0.0/OPR1.170623.032/15.0410.1911.117-0:user/release-keys
+- is_ab: false
+- brand: asus
+- branch: WW_Phone-user-8.0.0-OPR1.170623.032-15.0410.1911.117-0-release-keys
+- repo: asus_asus_z01gd_1_dump

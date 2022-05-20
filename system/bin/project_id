@@ -1,0 +1,11 @@
+#!/system/bin/sh
+
+status=`getprop ro.boot.id.prj`
+
+if [ "$status" -eq "3" ]; then 
+	echo ZS551KL
+
+else 
+	echo Unknown
+	
+fi

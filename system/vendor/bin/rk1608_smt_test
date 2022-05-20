@@ -1,0 +1,287 @@
+#!/system/bin/sh
+
+#locat log file
+LOGCAT_LOG_FILE="/data/data/rk_sorting.log"
+VOLTAGE_LOG_FILE="/proc/camera_node"
+VOLTAGE_LOG_FILE_SINGLE="/proc/camerasingle_node"
+
+#read stage
+#stage=`cat /proc/mpid`
+
+#$1:success/fail
+function my_exit() {
+  if [ "$1" == "success" ]; then
+    echo "================== RK Sorting Success =================" >> $LOGCAT_LOG_FILE
+	ATD_ret="1"
+	  #RK sorting voltage record
+	  if [ "$test_item" == "1" ] || [ "$test_item" == "4" ]; then
+		case $check_voltage in
+	    "1100000")
+			vRet=1
+			;;
+		"1112500")
+			vRet=2
+			;;
+		"1125000")
+			vRet=3
+			;;
+		"1137500")
+			vRet=4
+			;;
+		"1150000")
+			vRet=5
+			;;
+		"1162500")
+			vRet=6
+			;;
+		"1175000")
+			vRet=7
+			;;
+	    *)
+			echo "unknown voltage $check_voltage!!!" >> $LOGCAT_LOG_FILE
+			;;
+		esac
+	  fi
+
+  elif [ "$1" == "fail" ]; then
+	echo "================== RK Sorting fail =================" >> $LOGCAT_LOG_FILE
+	ATD_ret="0"
+	#RK sorting voltage record
+	vRet=8
+  elif [ "$1" == "start_timeout" ]; then
+	echo "================== RK Sorting start_timeout =================" >> $LOGCAT_LOG_FILE
+	ATD_ret="0"
+  elif [ "$1" == "result_timeout" ]; then
+	echo "================== RK Sorting result_timeout =================" >> $LOGCAT_LOG_FILE
+	ATD_ret="0"
+  elif [ "$1" == "openfail" ]; then
+	echo "================== RK Sorting openfail =================" >> $LOGCAT_LOG_FILE
+	ATD_ret="0"
+  elif [ "$1" == "setVoltage_fail" ]; then
+	echo "====== RK1608 set voltage fail, still is [$check_voltage]======" >> $LOGCAT_LOG_FILE
+	ATD_ret="0"
+  fi
+
+  #RK sorting voltage record
+  if [ "$test_item" == "4" ] && [ "$1" == "success" -o "$1" == "fail" ]; then  #DC
+	#echo "DC record voltage : $vRet"
+	if [ -e $VOLTAGE_LOG_FILE ]; then
+		echo $vRet > $VOLTAGE_LOG_FILE
+	else
+		echo Voltage Ret $vRet >> $LOGCAT_LOG_FILE
+	fi
+  elif [ "$test_item" == "1" ] && [ "$1" == "success" -o "$1" == "fail" ]; then #SC
+	#echo "SC record voltage : $vRet"
+	if [ -e $VOLTAGE_LOG_FILE_SINGLE ]; then
+		echo $vRet > $VOLTAGE_LOG_FILE_SINGLE
+	else
+		echo Voltage Ret $vRet >> $LOGCAT_LOG_FILE
+	fi
+  fi
+
+  #double reset
+  sleep 0.5
+  echo off > /dev/rk_preisp
+  set_RK1608_voltage 1100000 #reset to 1.1v
+  echo "================== RK1608 test end:reset 1100000 uV=================" >> $LOGCAT_LOG_FILE
+  echo $ATD_ret
+  exit 0
+}
+
+#set voltage:
+#do not set voltage in ZEUS
+function set_RK1608_voltage() {
+#	echo "core_voltage $1" > /dev/rk_preisp
+#	sleep 0.5
+#	echo on > /dev/rk_preisp
+#	sleep 0.2
+#	check_voltage=`cat sys/kernel/debug/regulator/ncp6335d/voltage` #step is 6.25 mV
+#	#echo "result=$check_voltage"
+#	echo off > /dev/rk_preisp
+#	sleep 0.2
+#	if [ "$1" -ne "$check_voltage" ]; then
+#		#echo "====== RK1608 set voltage[$1] fail, voltage is [$check_voltage]======" >> $LOGCAT_LOG_FILE
+#		isp_status_cnt="6"
+#		while [ $isp_status_cnt -ne "0" ]; do
+#			echo off > /dev/rk_preisp
+#			let isp_status_cnt--
+#		done
+#		my_exit setVoltage_fail
+#	fi
+}
+
+
+#[$1:SC/DC  $2:set_frq  $3:cur_voltage  $4:max_voltage  $5:counter]
+function SMT_test() {
+	#set parameter
+	test_type=$1
+	set_frq=$2
+	cur_voltage=$3
+	max_voltage=$4
+	counter=$5
+
+	if [ $cur_voltage -eq $max_voltage ]; then
+		add_voltage=0
+	else
+		add_voltage=1
+	fi
+	set_RK1608_voltage $cur_voltage #set voltage
+
+	while [ $counter -gt 0 ]; do
+		sleep 3
+		echo "==================RK1608 Item$test_type : set_frq[$set_frq]  cur_voltage[$cur_voltage]  max_voltage[$max_voltage] counter[$counter]================="  >> $LOGCAT_LOG_FILE
+		let counter--
+		smt_status=`/system/bin/preisp_smt $test_type $set_frq`
+		#parse result
+		case $smt_status in
+			*"smt$test_type success"*)
+			#echo "smt0 $set_frq success!!!"
+			break
+			#my_exit success
+			;;
+		*"start msg timeout"*)
+			echo "start msg timeout!!!" >> $LOGCAT_LOG_FILE
+			if [ $counter == 0 ]; then
+				my_exit start_timeout
+			fi
+			;;
+		*"result msg timeout"*)
+			echo "result msg timeout!!!" >> $LOGCAT_LOG_FILE
+			#if [ $counter == 0 ]; then
+				my_exit result_timeout
+			#fi
+			;;
+		*"open device"*)
+			echo "open devices fail!!!" >> $LOGCAT_LOG_FILE
+			if [ $counter == 0 ]; then
+				my_exit openfail
+			fi
+			;;
+		*"smt$test_type failed"*)
+			if [ $check_voltage -ge $max_voltage ]; then
+				if [ $add_voltage -eq 1 ]; then
+					echo "Item$test_type $set_frq fail!!!" >> $LOGCAT_LOG_FILE
+				else
+					echo "smt$test_type fail!!!" >> $LOGCAT_LOG_FILE
+				fi
+				my_exit fail
+			else
+				counter=$5 #reset counter
+				let cur_voltage=cur_voltage+12500 #add 12.5mv
+				set_RK1608_voltage $cur_voltage #set voltage
+			fi
+			;;
+	    *)
+			echo "unknown error result!!!" >> $LOGCAT_LOG_FILE
+			my_exit fail
+		;;
+		esac
+	done
+}
+
+#sleep test func:
+function Sleep_test() {
+	sleeptime=$1
+	cur_voltage=$2
+	counter=$3
+
+	set_RK1608_voltage $cur_voltage #set voltage
+
+	while [ $counter -gt 0 ]; do
+		sleep 3
+		echo "==================RK1608 Sleep : sleeptime[$sleeptime]  cur_voltage[$cur_voltage]  counter[$counter]=================" >> $LOGCAT_LOG_FILE
+
+		let counter--
+		sleep_status=`/system/bin/preisp_smt 2 $sleeptime`
+		#parse result
+		case $sleep_status in
+			*"sleep success"*)
+			echo "sleep success!!!" >> $LOGCAT_LOG_FILE
+			break
+			;;
+		*"start msg timeout"*)
+			echo "start msg timeout!!!" >> $LOGCAT_LOG_FILE
+			if [ $counter == 0 ]; then
+				my_exit start_timeout
+			fi
+			;;
+		*"result msg timeout"*)
+			echo "result msg timeout!!!" >> $LOGCAT_LOG_FILE
+			#if [ $counter == 0 ]; then
+				my_exit result_timeout
+			#fi
+			;;
+		*"open device"*)
+			echo "open devices fail!!!" >> $LOGCAT_LOG_FILE
+			if [ $counter == 0 ]; then
+				my_exit openfail
+			fi
+			;;
+		*"sleep failed"*)
+			echo "sleep fail!!!" >> $LOGCAT_LOG_FILE
+			my_exit fail
+			;;
+			*)
+			echo "unknown error result!!!" >> $LOGCAT_LOG_FILE
+			my_exit fail
+		;;
+		esac
+	done
+}
+
+if [ $# -ne 1 ] || [ $1 != "0" -a $1 != "1" -a $1 != "2" -a $1 != "3" -a $1 != "4" ]; then
+	echo "Usage: adb shell /data/data/rk1608_smt_test [test_item]"
+	echo -e "test_item\n         0: SC 630M\n         1: SC 660M\n         2: Sleep Test\n         3: DC 540M\n         4: DC 600M"
+	exit 0
+fi
+
+#force-stop snap dragon camera app:
+pid=`ps | /system/bin/grep org.codeaurora.snapcam | busybox awk '{print $1}'`
+if [ "$pid" != "" ]; then
+	am force-stop org.codeaurora.snapcam
+	sleep 2
+fi
+#reset some status:
+#LaserFocus_on 0 > /dev/null
+echo off > /dev/rk_preisp
+
+echo "==================RK1608 Sorting Start=================" > $LOGCAT_LOG_FILE
+test_item=$1
+count=0
+#start smt test:
+case $test_item in
+"0")  #SC 630M--------------------------------
+	ROUND=2
+	while [ $count -lt $ROUND ]
+	do
+		SMT_test 1 630 1125000 1125000 3
+		(( count=count+1 ))
+	done
+;;
+"1")  #SC 660M--------------------------------
+	SMT_test 1 660 1125000 1125000 3
+;;
+#Do not use below option at ZEUS
+"2")  #sleep--------------------------------
+	Sleep_test 60 1100000 3 #sleep 60s, voltage 1.1v, retry 3 times
+;;
+"3")  #DC 540M--------------------------------
+	ROUND=2
+	while [ $count -lt $ROUND ]
+	do
+		SMT_test 0 540 1100000 1100000 3
+		(( count=count+1 ))
+	done
+;;
+
+"4")  #DC 600M--------------------------------
+	SMT_test 0 600 1100000 1175000 3
+;;
+*)    #Exception------------------------
+	echo "Unkown Test Item $test_item!"
+	exit 0
+;;
+esac
+
+#no error
+my_exit success

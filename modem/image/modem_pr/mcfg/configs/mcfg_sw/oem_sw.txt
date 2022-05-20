@@ -1,0 +1,4 @@
+mcfg_sw/generic/asus_mbn/row/v10/mcfg_sw.mbn
+mcfg_sw/generic/asus_mbn/tim/v6/mcfg_sw.mbn
+mcfg_sw/generic/asus_mbn/testsim/v4/mcfg_sw.mbn
+mcfg_sw/generic/asus_mbn/vf_it/v4/mcfg_sw.mbn

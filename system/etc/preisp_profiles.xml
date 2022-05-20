@@ -1,0 +1,364 @@
+<?xml version="1.0" ?>
+<!--
+    Sensor
+        id:   to distingulish sensor
+        name: just for debug
+     Global:
+         in_mipi_phy:  sensor connect to preisp
+         out_mipi_phy: preisp connect to ap
+         mipi_lane:    mipi lane
+         bayer:        bayer pattern
+      Resolution:
+          w:      width of image data
+          h:      height of image data
+          mipi_clk: mipi clk
+          line_length_pclk:
+          frame_length_lines:
+          mode: to distingulish same resolution
+        Vc:
+           w:  width of data
+           h:  height of data
+           dt: each vc channel must be different
+           decode_format: 0x2b(raw10)
+           flag : 1 (picture channel) 0 (normal channel)
+-->
+
+<PreispProfiles>
+    <Sensor id="0" name="IMX362">
+        <Global in_mipi_phy="0" out_mipi_phy="0" mipi_lane="4" bayer="rggb"></Global>
+<!-- Res 0 -->
+<!-- Res 4 for LongExp -->
+<Resolution w="4032" h="3024" mipi_clk="1440000000" line_length_pclk="4680" frame_length_lines="3868" mode="0">
+            <Vc w="5040" h="2" di="0x12" decode_format="0x2a" flag="0"></Vc>
+            <Vc w="4032" h="3024" di="0x2b" decode_format="0x2b" flag="1"></Vc>
+            <Vc w="4032" h="756" di="0x36" decode_format="0x2b" flag="0"></Vc>
+			<Vc w="4032" h="2" di="0x30" decode_format="0x2b" flag="2"></Vc>
+        </Resolution>
+<!-- Res 5 HDR FullSize -->
+        <Resolution w="4032" h="3024" mipi_clk="1440000000" line_length_pclk="4680" frame_length_lines="3868" mode="1">
+            <Vc w="5040" h="2" di="0x12" decode_format="0x2a" flag="0"></Vc>
+            <Vc w="4032" h="3024" di="0x2b" decode_format="0x2b" flag="1"></Vc>
+            <Vc w="4032" h="756" di="0x36" decode_format="0x2b" flag="0"></Vc>
+            <Vc w="4032" h="2" di="0x30" decode_format="0x2b" flag="2"></Vc>
+        </Resolution>
+<!-- Res 1 -->
+      <Resolution w="4032" h="2272" mipi_clk="1150000000" line_length_pclk="4680" frame_length_lines="2928" mode="0">
+            <Vc w="5040" h="2" di="0x12" decode_format="0x2a" flag="0"></Vc>
+            <Vc w="4032" h="2272" di="0x2b" decode_format="0x2b" flag="1"></Vc>
+            <Vc w="4032" h="568" di="0x36" decode_format="0x2b" flag="0"></Vc>
+			<Vc w="4032" h="2" di="0x30" decode_format="0x2b" flag="2"></Vc>
+        </Resolution>
+<!-- Res 6 HDR FullSize -->
+        <Resolution w="4032" h="2272" mipi_clk="1150000000" line_length_pclk="4680" frame_length_lines="2928" mode="1">
+            <Vc w="5040" h="2" di="0x12" decode_format="0x2a" flag="0"></Vc>
+            <Vc w="4032" h="2272" di="0x2b" decode_format="0x2b" flag="1"></Vc>
+            <Vc w="4032" h="568" di="0x36" decode_format="0x2b" flag="0"></Vc>
+             <Vc w="4032" h="2" di="0x30" decode_format="0x2b" flag="2"></Vc>
+        </Resolution>
+
+<!-- Res 7 HDR Binning -->
+        <Resolution w="4032" h="1512" mipi_clk="380000000" line_length_pclk="2628" frame_length_lines="1928" mode="1">
+            <Vc w="5040" h="2" di="0x12" decode_format="0x2a" flag="0"></Vc>
+            <Vc w="4032" h="1512" di="0x2b" decode_format="0x2b" flag="1"></Vc>
+            <Vc w="4032" h="378" di="0x36" decode_format="0x2b" flag="0"></Vc>
+            <Vc w="4032" h="2" di="0x30" decode_format="0x2b" flag="2"></Vc>
+        </Resolution>
+        <Resolution w="4032" h="1136" mipi_clk="510000000" line_length_pclk="3400" frame_length_lines="2000" mode="0">
+            <Vc w="5040" h="2" di="0x12" decode_format="0x2a" flag="0"></Vc>
+            <Vc w="4032" h="1136" di="0x2b" decode_format="0x2b" flag="1"></Vc>
+            <Vc w="4032" h="284" di="0x36" decode_format="0x2b" flag="0"></Vc>
+			<Vc w="4032" h="2" di="0x30" decode_format="0x2b" flag="2"></Vc>
+        </Resolution>
+<!-- Res 8 HDR Binning -->
+        <Resolution w="4032" h="1136" mipi_clk="510000000" line_length_pclk="3400" frame_length_lines="2000" mode="1">
+            <Vc w="5040" h="2" di="0x12" decode_format="0x2a" flag="0"></Vc>
+            <Vc w="4032" h="1136" di="0x2b" decode_format="0x2b" flag="1"></Vc>
+            <Vc w="4032" h="284" di="0x36" decode_format="0x2b" flag="0"></Vc>
+            <Vc w="4032" h="2" di="0x30" decode_format="0x2b" flag="2"></Vc>
+        </Resolution>
+<!-- Res 10 HFR  HDR 60FPS -->
+        <Resolution w="4032" h="1136" mipi_clk="1200000000" line_length_pclk="8000" frame_length_lines="2000" mode="2">
+            <Vc w="5040" h="2" di="0x12" decode_format="0x2a" flag="0"></Vc>
+            <Vc w="4032" h="1136" di="0x2b" decode_format="0x2b" flag="1"></Vc>
+            <Vc w="4032" h="284" di="0x36" decode_format="0x2b" flag="0"></Vc>
+            <Vc w="4032" h="2" di="0x30" decode_format="0x2b" flag="2"></Vc>
+        </Resolution>
+<!-- Res 2 binning -->
+       <Resolution w="2016" h="1512" mipi_clk="380000000" line_length_pclk="6569" frame_length_lines="1928" mode="0">
+            <Vc w="2520" h="2" di="0x12" decode_format="0x2a" flag="0"></Vc>
+            <Vc w="2016" h="1512" di="0x2b" decode_format="0x2b" flag="1"></Vc>
+            <Vc w="2016" h="378" di="0x36" decode_format="0x2b" flag="0"></Vc>
+			<Vc w="2016" h="2" di="0x30" decode_format="0x2b" flag="2"></Vc>
+        </Resolution>
+        <Resolution w="2016" h="1512" mipi_clk="380000000" line_length_pclk="6569" frame_length_lines="1928" mode="1">
+            <Vc w="2520" h="2" di="0x12" decode_format="0x2a" flag="0"></Vc>
+            <Vc w="2016" h="1512" di="0x2b" decode_format="0x2b" flag="1"></Vc>
+            <Vc w="2016" h="378" di="0x36" decode_format="0x2b" flag="0"></Vc>
+            <Vc w="2016" h="2" di="0x30" decode_format="0x2b" flag="2"></Vc>
+        </Resolution>
+<!-- Res 3 binning -->
+        <Resolution w="2016" h="1136" mipi_clk="300000000" line_length_pclk="2000" frame_length_lines="2000" mode="0">
+            <Vc w="2520" h="2" di="0x12" decode_format="0x2a" flag="0"></Vc>
+            <Vc w="2016" h="1136" di="0x2b" decode_format="0x2b" flag="1"></Vc>
+            <Vc w="2016" h="284" di="0x36" decode_format="0x2b" flag="0"></Vc>
+			<Vc w="2016" h="2" di="0x30" decode_format="0x2b" flag="2"></Vc>
+        </Resolution>
+        <Resolution w="2016" h="1136" mipi_clk="300000000" line_length_pclk="2000" frame_length_lines="2000" mode="1">
+            <Vc w="2520" h="2" di="0x12" decode_format="0x2a" flag="0"></Vc>
+            <Vc w="2016" h="1136" di="0x2b" decode_format="0x2b" flag="1"></Vc>
+            <Vc w="2016" h="284" di="0x36" decode_format="0x2b" flag="0"></Vc>
+            <Vc w="2016" h="2" di="0x30" decode_format="0x2b" flag="2"></Vc>
+        </Resolution>
+<!-- Res 9 HFR 60FPS -->
+        <Resolution w="2016" h="1136" mipi_clk="700000000" line_length_pclk="2916" frame_length_lines="1600" mode="2">
+            <Vc w="2520" h="2" di="0x12" decode_format="0x2a" flag="0"></Vc>
+            <Vc w="2016" h="1136" di="0x2b" decode_format="0x2b" flag="1"></Vc>
+            <Vc w="2016" h="284" di="0x36" decode_format="0x2b" flag="0"></Vc>
+            <Vc w="2016" h="2" di="0x30" decode_format="0x2b" flag="2"></Vc>
+        </Resolution>
+        <Resolution w="1964" h="1104" mipi_clk="700000000" line_length_pclk="2916" frame_length_lines="1600" mode="0">
+            <Vc w="2456" h="2" di="0x12" decode_format="0x2a" flag="0"></Vc>
+            <Vc w="1964" h="1104" di="0x2b" decode_format="0x2b" flag="1"></Vc>
+            <Vc w="1964" h="276" di="0x36" decode_format="0x2b" flag="0"></Vc>
+            <Vc w="1964" h="2" di="0x30" decode_format="0x2b" flag="2"></Vc>
+        </Resolution>
+         <Resolution w="1964" h="1104" mipi_clk="1200000000" line_length_pclk="2500" frame_length_lines="1600" mode="1">
+            <Vc w="2456" h="2" di="0x12" decode_format="0x2a" flag="0"></Vc>
+            <Vc w="1964" h="1104" di="0x2b" decode_format="0x2b" flag="1"></Vc>
+            <Vc w="1964" h="276" di="0x36" decode_format="0x2b" flag="0"></Vc>
+            <Vc w="1964" h="2" di="0x30" decode_format="0x2b" flag="2"></Vc>
+        </Resolution> 
+<!-- Res 11 HFR  240FPS -->
+       <Resolution w="1792" h="1008" mipi_clk="1500000000" line_length_pclk="2380" frame_length_lines="1050" mode="0">
+            <Vc w="1792" h="1008" di="0x2b" decode_format="0x2b" flag="1"></Vc>
+            <Vc w="2240" h="2" di="0x12" decode_format="0x2a" flag="0"></Vc>
+        </Resolution>
+<!-- Res 22 -->
+        <Resolution w="3928" h="2944" mipi_clk="1400000000" line_length_pclk="4631" frame_length_lines="3900" mode="0">
+            <Vc w="4912" h="2" di="0x12" decode_format="0x2a" flag="0"></Vc>
+            <Vc w="3928" h="2944" di="0x2b" decode_format="0x2b" flag="1"></Vc>
+            <Vc w="3928" h="736" di="0x36" decode_format="0x2b" flag="0"></Vc>
+            <Vc w="3928" h="2" di="0x30" decode_format="0x2b" flag="2"></Vc>
+        </Resolution>
+<!-- Res 23/24 -->
+        <Resolution w="3928" h="2208" mipi_clk="1150000000" line_length_pclk="4946" frame_length_lines="3000" mode="0">
+            <Vc w="4912" h="2" di="0x12" decode_format="0x2a" flag="0"></Vc>
+            <Vc w="3928" h="2208" di="0x2b" decode_format="0x2b" flag="1"></Vc>
+            <Vc w="3928" h="552" di="0x36" decode_format="0x2b" flag="0"></Vc>
+            <Vc w="3928" h="2" di="0x30" decode_format="0x2b" flag="2"></Vc>
+        </Resolution>
+<!-- Res 25 -->
+        <Resolution w="1964" h="1472" mipi_clk="500000000" line_length_pclk="3072" frame_length_lines="2100" mode="0">
+            <Vc w="2456" h="2" di="0x12" decode_format="0x2a" flag="0"></Vc>
+            <Vc w="1964" h="1472" di="0x2b" decode_format="0x2b" flag="1"></Vc>
+            <Vc w="1964" h="368" di="0x36" decode_format="0x2b" flag="0"></Vc>
+            <Vc w="1964" h="2" di="0x30" decode_format="0x2b" flag="2"></Vc>
+        </Resolution>
+<!-- Res 27 -->
+        <Resolution w="1536" h="864" mipi_clk="1500000000" line_length_pclk="1923" frame_length_lines="1300" mode="0">
+            <Vc w="1920" h="2" di="0x12" decode_format="0x2a" flag="0"></Vc>
+            <Vc w="1536" h="864" di="0x2b" decode_format="0x2b" flag="1"></Vc>
+            <Vc w="1536" h="2" di="0x30" decode_format="0x2b" flag="2"></Vc>
+        </Resolution>
+    </Sensor>    
+	<Sensor id="1" name="IMX319">
+        <Global in_mipi_phy="2" out_mipi_phy="1" mipi_lane="2" bayer="bggr"></Global>
+        <Resolution w="3280" h="2460" mipi_clk="1500000000" line_length_pclk="3968" frame_length_lines="2517" mode="0">
+            <Vc w="4100" h="2" di="0x12" decode_format="0x2a" flag="0"></Vc>
+            <Vc w="3280" h="2460" di="0x2b" decode_format="0x2b" flag="1"></Vc>
+            <Vc w="3280" h="1" di="0x36" decode_format="0x2b" flag="0"></Vc>
+            <Vc w="3280" h="1" di="0x27" decode_format="0x2b" flag="0"></Vc>
+        </Resolution> 
+        <Resolution w="3280" h="2460" mipi_clk="1500000000" line_length_pclk="3968" frame_length_lines="2517" mode="1">
+            <Vc w="4100" h="2" di="0x12" decode_format="0x2a" flag="0"></Vc>
+            <Vc w="3280" h="2460" di="0x2b" decode_format="0x2b" flag="1"></Vc>
+            <Vc w="3280" h="1" di="0x36" decode_format="0x2b" flag="0"></Vc>
+            <Vc w="3280" h="1" di="0x27" decode_format="0x2b" flag="0"></Vc>
+        </Resolution> 
+        <Resolution w="3280" h="1846" mipi_clk="1200000000" line_length_pclk="3968" frame_length_lines="1908" mode="0">
+            <Vc w="4100" h="2" di="0x12" decode_format="0x2a" flag="0"></Vc>
+            <Vc w="3280" h="1846" di="0x2b" decode_format="0x2b" flag="1"></Vc>
+            <Vc w="3280" h="1" di="0x36" decode_format="0x2b" flag="0"></Vc>
+            <Vc w="3280" h="1" di="0x27" decode_format="0x2b" flag="0"></Vc>
+        </Resolution> 
+        <Resolution w="3280" h="1846" mipi_clk="1200000000" line_length_pclk="3968" frame_length_lines="1908" mode="1">
+            <Vc w="4100" h="2" di="0x12" decode_format="0x2a" flag="0"></Vc>
+            <Vc w="3280" h="1846" di="0x2b" decode_format="0x2b" flag="1"></Vc>
+            <Vc w="3280" h="1" di="0x36" decode_format="0x2b" flag="0"></Vc>
+            <Vc w="3280" h="1" di="0x27" decode_format="0x2b" flag="0"></Vc>
+        </Resolution> 
+        <Resolution w="1640" h="1230" mipi_clk="700000000" line_length_pclk="2490" frame_length_lines="1865" mode="0">
+            <Vc w="2052" h="2" di="0x12" decode_format="0x2a" flag="0"></Vc>
+            <Vc w="1640" h="1230" di="0x2b" decode_format="0x2b" flag="1"></Vc>
+            <Vc w="1640" h="1" di="0x36" decode_format="0x2b" flag="0"></Vc>
+            <Vc w="1640" h="1" di="0x27" decode_format="0x2b" flag="0"></Vc>
+        </Resolution> 
+        <Resolution w="1640" h="1230" mipi_clk="700000000" line_length_pclk="2490" frame_length_lines="1865" mode="1">
+            <Vc w="2052" h="2" di="0x12" decode_format="0x2a" flag="0"></Vc>
+            <Vc w="1640" h="1230" di="0x2b" decode_format="0x2b" flag="1"></Vc>
+            <Vc w="1640" h="1" di="0x36" decode_format="0x2b" flag="0"></Vc>
+            <Vc w="1640" h="1" di="0x27" decode_format="0x2b" flag="0"></Vc>
+        </Resolution> 
+        <Resolution w="1640" h="922" mipi_clk="700000000" line_length_pclk="2069" frame_length_lines="1865" mode="0">
+            <Vc w="2052" h="2" di="0x12" decode_format="0x2a" flag="0"></Vc>
+            <Vc w="1640" h="922" di="0x2b" decode_format="0x2b" flag="1"></Vc>
+            <Vc w="1640" h="1" di="0x36" decode_format="0x2b" flag="0"></Vc>
+            <Vc w="1640" h="1" di="0x27" decode_format="0x2b" flag="0"></Vc>
+        </Resolution>        
+        <Resolution w="1640" h="922" mipi_clk="700000000" line_length_pclk="2069" frame_length_lines="1865" mode="1">
+            <Vc w="2052" h="2" di="0x12" decode_format="0x2a" flag="0"></Vc>
+            <Vc w="1640" h="922" di="0x2b" decode_format="0x2b" flag="1"></Vc>
+            <Vc w="1640" h="1" di="0x36" decode_format="0x2b" flag="0"></Vc>
+            <Vc w="1640" h="1" di="0x27" decode_format="0x2b" flag="0"></Vc>
+        </Resolution>        
+    </Sensor>    
+    <Sensor id="2" name="IMX351">
+        <Global in_mipi_phy="1" out_mipi_phy="1" mipi_lane="4" bayer="rggb"></Global>
+	<Resolution w="4656" h="3492" mipi_clk="1480000000" line_length_pclk="5536" frame_length_lines="3564" mode="0">
+		<Vc w="5820" h="2" di="0x12" decode_format="0x2a" flag="0"></Vc>
+		<Vc w="4656" h="3492" di="0x2b" decode_format="0x2b" flag="1"></Vc>
+        <Vc w="4656" h="2" di="0x30" decode_format="0x2b" flag="2"></Vc>
+		<Vc w="4656" h="1" di="0x36" decode_format="0x2b" flag="0"></Vc>
+	</Resolution>
+	<Resolution w="4656" h="3492" mipi_clk="1480000000" line_length_pclk="5536" frame_length_lines="3564" mode="1">
+		<Vc w="5820" h="2" di="0x12" decode_format="0x2a" flag="0"></Vc>
+		<Vc w="4656" h="3492" di="0x2b" decode_format="0x2b" flag="1"></Vc>
+	        <Vc w="4656" h="2" di="0x30" decode_format="0x2b" flag="2"></Vc>
+	        <Vc w="4656" h="1" di="0x36" decode_format="0x2b" flag="0"></Vc>
+	</Resolution>
+	<Resolution w="4656" h="2620" mipi_clk="1100000000" line_length_pclk="5300" frame_length_lines="2688" mode="0">
+		<Vc w="5820" h="2" di="0x12" decode_format="0x2a" flag="0"></Vc>
+		<Vc w="4656" h="2620" di="0x2b" decode_format="0x2b" flag="1"></Vc>
+		<Vc w="4656" h="1" di="0x36" decode_format="0x2b" flag="0"></Vc>
+	</Resolution>
+	<Resolution w="4656" h="2620" mipi_clk="1100000000" line_length_pclk="5300" frame_length_lines="2688" mode="1">
+		<Vc w="5820" h="2" di="0x12" decode_format="0x2a" flag="0"></Vc>
+		<Vc w="4656" h="2620" di="0x2b" decode_format="0x2b" flag="1"></Vc>
+	        <Vc w="4656" h="2" di="0x30" decode_format="0x2b" flag="2"></Vc>
+	        <Vc w="4656" h="1" di="0x36" decode_format="0x2b" flag="0"></Vc>
+	</Resolution>
+        <Resolution w="2328" h="1744" mipi_clk="520000000" line_length_pclk="3817" frame_length_lines="1816" mode="0">
+		<Vc w="2910" h="2" di="0x12" decode_format="0x2a" flag="0"></Vc>
+		<Vc w="2328" h="1744" di="0x2b" decode_format="0x2b" flag="1"></Vc>
+		<Vc w="2328" h="1" di="0x36" decode_format="0x2b" flag="0"></Vc>
+        </Resolution>
+        <Resolution w="2328" h="1310" mipi_clk="520000000" line_length_pclk="4952" frame_length_lines="1400" mode="0">
+		<Vc w="2910" h="2" di="0x12" decode_format="0x2a" flag="0"></Vc>
+		<Vc w="2328" h="1310" di="0x2b" decode_format="0x2b" flag="1"></Vc>
+		<Vc w="2328" h="1" di="0x36" decode_format="0x2b" flag="0"></Vc>
+        </Resolution>
+	<Resolution w="4656" h="1744" mipi_clk="1000000000" line_length_pclk="5170" frame_length_lines="2578" mode="0">
+		<Vc w="5820" h="2" di="0x12" decode_format="0x2a" flag="0"></Vc>
+		<Vc w="4656" h="1744" di="0x2b" decode_format="0x2b" flag="1"></Vc>
+		<Vc w="4656" h="1" di="0x36" decode_format="0x2b" flag="0"></Vc>
+	</Resolution>
+	<Resolution w="4656" h="1744" mipi_clk="1000000000" line_length_pclk="5170" frame_length_lines="2578" mode="1">
+		<Vc w="5820" h="2" di="0x12" decode_format="0x2a" flag="0"></Vc>
+		<Vc w="4656" h="1744" di="0x2b" decode_format="0x2b" flag="1"></Vc>
+	        <Vc w="4656" h="2" di="0x30" decode_format="0x2b" flag="2"></Vc>
+	        <Vc w="4656" h="1" di="0x36" decode_format="0x2b" flag="0"></Vc>
+	</Resolution>
+	<Resolution w="4656" h="1312" mipi_clk="1000000000" line_length_pclk="5170" frame_length_lines="2578" mode="0">
+		<Vc w="5820" h="2" di="0x12" decode_format="0x2a" flag="0"></Vc>
+		<Vc w="4656" h="1312" di="0x2b" decode_format="0x2b" flag="1"></Vc>
+		<Vc w="4656" h="1" di="0x36" decode_format="0x2b" flag="0"></Vc>
+	</Resolution>
+	<Resolution w="4656" h="1312" mipi_clk="1000000000" line_length_pclk="5170" frame_length_lines="2578" mode="1">
+		<Vc w="5820" h="2" di="0x12" decode_format="0x2a" flag="0"></Vc>
+		<Vc w="4656" h="1312" di="0x2b" decode_format="0x2b" flag="1"></Vc>
+	        <Vc w="4656" h="2" di="0x30" decode_format="0x2b" flag="2"></Vc>
+	        <Vc w="4656" h="1" di="0x36" decode_format="0x2b" flag="0"></Vc>
+	</Resolution>
+        <Resolution w="4032" h="3024" mipi_clk="1150000000" line_length_pclk="4700" frame_length_lines="3200" mode="0">
+            <Vc w="5040" h="2" di="0x12" decode_format="0x2a" flag="0"></Vc>
+            <Vc w="4032" h="3024" di="0x2b" decode_format="0x2b" flag="1"></Vc>
+            <Vc w="4032" h="1" di="0x36" decode_format="0x2b" flag="0"></Vc>
+			<Vc w="4032" h="2" di="0x30" decode_format="0x2b" flag="2"></Vc>
+        </Resolution>
+        <Resolution w="4032" h="3024" mipi_clk="1150000000" line_length_pclk="4700" frame_length_lines="3200" mode="1">
+            <Vc w="5040" h="2" di="0x12" decode_format="0x2a" flag="0"></Vc>
+            <Vc w="4032" h="3024" di="0x2b" decode_format="0x2b" flag="1"></Vc>
+            <Vc w="4032" h="2" di="0x30" decode_format="0x2b" flag="2"></Vc>
+            <Vc w="4032" h="1" di="0x36" decode_format="0x2b" flag="0"></Vc>
+        </Resolution>
+      <Resolution w="4032" h="2272" mipi_clk="1000000000" line_length_pclk="5000" frame_length_lines="2400" mode="0">
+            <Vc w="5040" h="2" di="0x12" decode_format="0x2a" flag="0"></Vc>
+            <Vc w="4032" h="2272" di="0x2b" decode_format="0x2b" flag="1"></Vc>
+            <Vc w="4032" h="1" di="0x36" decode_format="0x2b" flag="0"></Vc>
+			<Vc w="4032" h="2" di="0x30" decode_format="0x2b" flag="2"></Vc>
+        </Resolution>
+        <Resolution w="4032" h="2272" mipi_clk="1000000000" line_length_pclk="5000" frame_length_lines="2400" mode="1">
+            <Vc w="5040" h="2" di="0x12" decode_format="0x2a" flag="0"></Vc>
+            <Vc w="4032" h="2272" di="0x2b" decode_format="0x2b" flag="1"></Vc>
+             <Vc w="4032" h="2" di="0x30" decode_format="0x2b" flag="2"></Vc>
+             <Vc w="4032" h="1" di="0x36" decode_format="0x2b" flag="0"></Vc>
+        </Resolution>
+        <Resolution w="2016" h="1512" mipi_clk="600000000" line_length_pclk="2666" frame_length_lines="3000" mode="0">
+            <Vc w="2520" h="2" di="0x12" decode_format="0x2a" flag="0"></Vc>
+            <Vc w="2016" h="1512" di="0x2b" decode_format="0x2b" flag="1"></Vc>
+            <Vc w="2016" h="1" di="0x36" decode_format="0x2b" flag="0"></Vc>
+			<Vc w="2016" h="2" di="0x30" decode_format="0x2b" flag="2"></Vc>
+        </Resolution>
+        <Resolution w="2016" h="1512" mipi_clk="600000000" line_length_pclk="2666" frame_length_lines="3000" mode="1">
+            <Vc w="2520" h="2" di="0x12" decode_format="0x2a" flag="0"></Vc>
+            <Vc w="2016" h="1512" di="0x2b" decode_format="0x2b" flag="1"></Vc>
+            <Vc w="2016" h="1" di="0x36" decode_format="0x2b" flag="0"></Vc>
+            <Vc w="2016" h="2" di="0x30" decode_format="0x2b" flag="2"></Vc>
+        </Resolution>
+        <Resolution w="2016" h="1136" mipi_clk="600000000" line_length_pclk="2666" frame_length_lines="3000" mode="0">
+            <Vc w="2520" h="2" di="0x12" decode_format="0x2a" flag="0"></Vc>
+            <Vc w="2016" h="1136" di="0x2b" decode_format="0x2b" flag="1"></Vc>
+            <Vc w="2016" h="1" di="0x36" decode_format="0x2b" flag="0"></Vc>
+			<Vc w="2016" h="2" di="0x30" decode_format="0x2b" flag="2"></Vc>
+        </Resolution>
+        <Resolution w="2016" h="1136" mipi_clk="600000000" line_length_pclk="2666" frame_length_lines="3000" mode="1">
+            <Vc w="2520" h="2" di="0x12" decode_format="0x2a" flag="0"></Vc>
+            <Vc w="2016" h="1136" di="0x2b" decode_format="0x2b" flag="1"></Vc>
+            <Vc w="2016" h="1" di="0x36" decode_format="0x2b" flag="0"></Vc>
+            <Vc w="2016" h="2" di="0x30" decode_format="0x2b" flag="2"></Vc>
+        </Resolution>
+<!-- 60fps -->
+        <Resolution w="2016" h="1136" mipi_clk="600000000" line_length_pclk="2500" frame_length_lines="1600" mode="2">
+            <Vc w="2520" h="2" di="0x12" decode_format="0x2a" flag="0"></Vc>
+            <Vc w="2016" h="1136" di="0x2b" decode_format="0x2b" flag="1"></Vc>
+            <Vc w="2016" h="1" di="0x36" decode_format="0x2b" flag="0"></Vc>
+            <Vc w="2016" h="2" di="0x30" decode_format="0x2b" flag="2"></Vc>
+        </Resolution>
+
+
+      <Resolution w="4032" h="1512" mipi_clk="650000000" line_length_pclk="4814" frame_length_lines="1800" mode="0">
+            <Vc w="5040" h="2" di="0x12" decode_format="0x2a" flag="0"></Vc>
+            <Vc w="4032" h="1512" di="0x2b" decode_format="0x2b" flag="1"></Vc>
+            <Vc w="4032" h="1" di="0x36" decode_format="0x2b" flag="0"></Vc>
+			<Vc w="4032" h="2" di="0x30" decode_format="0x2b" flag="2"></Vc>
+        </Resolution>
+        <Resolution w="4032" h="1512" mipi_clk="650000000" line_length_pclk="4814" frame_length_lines="1800" mode="1">
+            <Vc w="5040" h="2" di="0x12" decode_format="0x2a" flag="0"></Vc>
+            <Vc w="4032" h="1512" di="0x2b" decode_format="0x2b" flag="1"></Vc>
+            <Vc w="4032" h="1" di="0x36" decode_format="0x2b" flag="0"></Vc>
+            <Vc w="4032" h="2" di="0x30" decode_format="0x2b" flag="2"></Vc>
+        </Resolution>
+
+        <Resolution w="4032" h="1136" mipi_clk="600000000" line_length_pclk="6153" frame_length_lines="1300" mode="0">
+            <Vc w="5040" h="2" di="0x12" decode_format="0x2a" flag="0"></Vc>
+            <Vc w="4032" h="1136" di="0x2b" decode_format="0x2b" flag="1"></Vc>
+            <Vc w="4032" h="1" di="0x36" decode_format="0x2b" flag="0"></Vc>
+			<Vc w="4032" h="2" di="0x30" decode_format="0x2b" flag="2"></Vc>
+        </Resolution>
+        <Resolution w="4032" h="1136" mipi_clk="600000000" line_length_pclk="6153" frame_length_lines="1300" mode="1">
+            <Vc w="5040" h="2" di="0x12" decode_format="0x2a" flag="0"></Vc>
+            <Vc w="4032" h="1136" di="0x2b" decode_format="0x2b" flag="1"></Vc>
+            <Vc w="4032" h="1" di="0x36" decode_format="0x2b" flag="0"></Vc>
+            <Vc w="4032" h="2" di="0x30" decode_format="0x2b" flag="2"></Vc>
+        </Resolution>
+<!-- 60fps -->
+        <Resolution w="4032" h="1136" mipi_clk="900000000" line_length_pclk="4615" frame_length_lines="1300" mode="2">
+            <Vc w="5040" h="2" di="0x12" decode_format="0x2a" flag="0"></Vc>
+            <Vc w="4032" h="1136" di="0x2b" decode_format="0x2b" flag="1"></Vc>
+            <Vc w="4032" h="1" di="0x36" decode_format="0x2b" flag="0"></Vc>
+            <Vc w="4032" h="2" di="0x30" decode_format="0x2b" flag="2"></Vc>
+        </Resolution>
+
+    </Sensor>
+</PreispProfiles>
+
